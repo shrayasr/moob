@@ -1,2 +1,30 @@
 #!/bin/bash
-echo "needs a lot of thinking . 45minutehackathon FAIL"
+
+HOME_DIR=$(eval echo ~${SUDO_USER});
+
+MOOB_DIR=${HOME_DIR}/moob;
+
+MOOB_TYPES=($( ls ${HOME_DIR}/moob));
+
+if [ "$1" == "init"  ]; then 
+  mkdir ${MOOB_DIR};
+elif [ "$1" == "" ]; then
+  echo 'wtf!!';
+else
+  if [ "$2" != "" ]; then
+    if [ "$3" != "" ]; then
+      echo "$3" > ${MOOB_DIR}/$1/$2.txt;
+      echo $2 ' in ' $1 is $3.
+    else
+      echo 'cant be empty';
+    fi
+  else
+    MOOB_FLOC=$(find $MOOB_DIR -iname $1.txt);
+    if [ "$MOOB_FLOC" == "" ]; then
+      mkdir ${MOOB_DIR}/$1;
+      echo 'Created new list ' $1;
+    else
+      cat ${MOOB_FLOC}; #bleerdy clipboards are handled differently in mac and linux
+    fi
+  fi
+fi
