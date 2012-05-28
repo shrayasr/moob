@@ -1,7 +1,7 @@
 #M O O B
 
 ###What is it?
-moob is a clone of the [@holman/boom](www.github.com/holman/boom) repo but just done purely with the shell . 
+moob is a clone of the [@holman/boom](http://www.github.com/holman/boom) repo but just done purely with the shell . 
 
 ###Why re-invent the wheel , u ass ?
 Well mainly because i dont know ruby :P But also because i wanted to see how we could manage such chunks of data through just the shell . 
