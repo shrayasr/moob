@@ -2,28 +2,48 @@
 
 HOME_DIR=$(eval echo ~${SUDO_USER});
 
-MOOB_DIR=${HOME_DIR}/moob;
+MOOB_DIR=${HOME_DIR}/.moob;
 
-MOOB_TYPES=($( ls ${HOME_DIR}/moob));
+MOOB_LISTS=($( ls ${MOOB_DIR}));
 
 if [ "$1" == "init"  ]; then 
+  # create a directory on init
   mkdir ${MOOB_DIR};
 elif [ "$1" == "" ]; then
-  echo 'wtf!!';
+  # display all the lists available
+  T_LIST=${#MOOB_LISTS[*]};
+  for (( i=1; i<=$T_LIST; i++ ))
+  do
+    echo ' '$i'.' ${MOOB_LISTS[$i-1]};
+  done
 else
   if [ "$2" != "" ]; then
     if [ "$3" != "" ]; then
+      # add a new item to a list
       echo "$3" > ${MOOB_DIR}/$1/$2.txt;
-      echo $2 ' in ' $1 is $3.
+      echo $2 'in' $1 is $3.
     else
       echo 'cant be empty';
     fi
   else
     MOOB_FLOC=$(find $MOOB_DIR -iname $1.txt);
     if [ "$MOOB_FLOC" == "" ]; then
-      mkdir ${MOOB_DIR}/$1;
-      echo 'Created new list ' $1;
+      MOOB_LLOC=$(find $MOOB_DIR -type d -iname $1);
+      if [ "$MOOB_LLOC" == "" ]; then
+        # create a new list
+        mkdir ${MOOB_DIR}/$1;
+        echo 'Created new list' $1;
+      else
+        # show list contents if exist
+        MOOBL_CONT=($( ls ${MOOB_LLOC}));
+        TL_CONT=${#MOOBL_CONT[*]};
+        for (( i=1; i<=$TL_CONT; i++ ))
+        do
+          echo ' '$i'.' ${MOOBL_CONT[$i-1]} | sed 's/.\{4\}$//';
+        done
+      fi
     else
+      # fetch an item fromt he list
       cat ${MOOB_FLOC}; #bleerdy clipboards are handled differently in mac and linux
     fi
   fi
