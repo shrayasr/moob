@@ -1,5 +1,9 @@
 #!/bin/bash
 
+############################
+#	functions zone	
+############################
+
 init_core()
 {
 	#do the initialization here
@@ -26,7 +30,21 @@ init()
 	fi
 }
 
-if [ $1 = "init"]
+show_all()
+{
+	for f in ~/.moob/*; do
+		lines=$(cat $f | wc -l | tr -d ' ')
+		file=$(echo $f | cut -d "/" -f5)
+		echo "> " $file " ($lines) "
+	done
+}
+
+########################################################
+
+if [ $1 == "init" ]
 then
 	init
+elif [ $1 == "all" ]
+then
+	show_all
 fi
