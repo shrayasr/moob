@@ -1,2 +1,33 @@
 #!/bin/bash
-echo "needs a lot of thinking . 45minutehackathon FAIL"
+#!/bin/bash
+
+init_core()
+{
+	#do the initialization here
+	echo "Initialized moob repo in ~/.moob!"
+	mkdir ~/.moob
+}
+
+init()
+{
+	if [ -d ~/.moob ]
+	then
+		echo -n "a moob repo already exists , init anyway ? (y/n) : "
+		read choice
+
+		if [ $choice == "y" -o $choice == "Y" ]
+		then
+			echo -n "bringing down current repository... "
+			rm -rf ~/.moob
+			echo "DONE"
+			init_core
+		fi
+	else
+		init_core
+	fi
+}
+
+if [ $1 = "init" ]
+then
+	init
+fi
