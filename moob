@@ -21,7 +21,7 @@ init()
 		if [ $choice == "y" -o $choice == "Y" ]
 		then
 			echo -n "bringing down current repository... "
-			rm -rf ~/.moob
+			purge
 			echo "DONE"
 			init_core
 		fi
@@ -30,21 +30,55 @@ init()
 	fi
 }
 
-show_all()
+all()
 {
 	for f in ~/.moob/*; do
 		lines=$(cat $f | wc -l | tr -d ' ')
 		file=$(echo $f | cut -d "/" -f5)
 		echo "> " $file " ($lines) "
+		cat $f | while read LINE
+		do
+			key=$(echo $LINE | cut -d "|" -f1 | awk 'NR>1{print $1}' RS=[ FS=])
+			val=$(echo $LINE | cut -d "|" -f2)
+			echo -e "\t# $key ($val)"
+		done
 	done
+}
+
+uth()
+{
+	open ~/.moob
+}
+
+purge()
+{
+	rm -rf ~/.moob
 }
 
 ########################################################
 
-if [ $1 == "init" ]
+if [ $# == 1 ]
 then
-	init
-elif [ $1 == "all" ]
-then
-	show_all
+	if [ $1 == "init" ]
+	then
+		init
+	elif [ $1 == "all" ]
+	then
+		all
+	elif [ $1 == "uth" ]
+	then
+		uth
+	elif [ $1 == "purge" ]
+	then
+		echo -n "Are you sure you want to purge all contents of moob ? (y/n) : "
+		read choice
+
+		if [ choice == "y" -o choice == "Y" ]
+		then
+			purge
+		fi
+	else
+		arg=$1
+		#decide what to do with it
+	fi
 fi
