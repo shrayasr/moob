@@ -7,12 +7,12 @@ moob is a clone of the [@holman/boom](http://www.github.com/holman/boom) repo bu
 Well mainly because i dont know ruby :P But also because i wanted to see how we could manage such chunks of data through just the shell . 
 
 ###Install
-`moob init` will initialize a moob repository in your current directory and set the environment variable `$MOOB_PATH` to it. 
+`moob init` will initialize a moob repository in your `home` directory
 
 ###Quickie guide
 ```
 $ moob init
-moob! initialized in '/users/shrayas/'
+moob! initialized
 
 $ moob bookmarks
 moob! Created a new list : 'bookmarks'
@@ -25,7 +25,6 @@ moob! Just copied www.facebook.com to your clipboard
 ```
     
 ###Features
-I'm too bored to write it in here , just go see [his wiki](https://github.com/holman/boom/wiki/Commands) . All those commands are going to be supported (including the copy to shell , though currently on OSX only)
+I'm too bored to write it in here , just go see [his wiki](https://github.com/holman/boom/wiki/Commands) . All those commands are going to be supported. 
 
-###Moar
-I tried to do this as a 45 minute hackathon but turns out there is more than meets the eye . This needs a whole lot of thinking to build . Hoping it'll be done by this weekend :) Keep an eye out. Cheers !
+Copy to shell supported out of the box with OXS but needs `xclip` or `xsel` to be installed otherwise
